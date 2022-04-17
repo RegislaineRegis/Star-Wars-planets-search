@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Table() {
-  const { data } = useContext(PlanetsContext);
+  const { data, filterByName } = useContext(PlanetsContext);
+  const { name } = filterByName;
 
   return (
     <section>
@@ -25,23 +26,24 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { data.map((obj) => (
-            <tr key={ obj.name }>
-              <td>{ obj.name }</td>
-              <td>{ obj.rotation_period }</td>
-              <td>{ obj.orbital_period }</td>
-              <td>{ obj.diameter }</td>
-              <td>{ obj.climate }</td>
-              <td>{ obj.gravity }</td>
-              <td>{ obj.terrain }</td>
-              <td>{ obj.surface_water }</td>
-              <td>{ obj.population }</td>
-              <td>{ obj.films }</td>
-              <td>{ obj.created }</td>
-              <td>{ obj.edited }</td>
-              <td>{ obj.url }</td>
-            </tr>
-          ))}
+          { data.filter((planet) => planet.name.toLowerCase().includes(name))
+            .map((obj) => (
+              <tr key={ obj.name }>
+                <td>{ obj.name }</td>
+                <td>{ obj.rotation_period }</td>
+                <td>{ obj.orbital_period }</td>
+                <td>{ obj.diameter }</td>
+                <td>{ obj.climate }</td>
+                <td>{ obj.gravity }</td>
+                <td>{ obj.terrain }</td>
+                <td>{ obj.surface_water }</td>
+                <td>{ obj.population }</td>
+                <td>{ obj.films }</td>
+                <td>{ obj.created }</td>
+                <td>{ obj.edited }</td>
+                <td>{ obj.url }</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </section>
