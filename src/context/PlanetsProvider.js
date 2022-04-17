@@ -6,6 +6,10 @@ import getPlanets from '../services/fetchPlanetsAPI';
 function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filterByNumericValues, setFilterByNumericValues] = useState([{
+    column: 'population',
+    comparison: 'maior que',
+    value: '0' }]);
 
   useEffect(() => {
     const getPlanetsApi = async () => {
@@ -16,7 +20,13 @@ function PlanetsProvider({ children }) {
   }, []);
 
   return (
-    <PlanetsContext.Provider value={ { data, filterByName, setFilterByName } }>
+    <PlanetsContext.Provider
+      value={ { data,
+        filterByName,
+        setFilterByName,
+        filterByNumericValues,
+        setFilterByNumericValues } }
+    >
       { children }
     </PlanetsContext.Provider>
   );
