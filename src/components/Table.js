@@ -1,9 +1,19 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Table() {
-  const { data, filterByName } = useContext(PlanetsContext);
+  const {
+    filterByName,
+    getPlanetsApi,
+    filteredPlanets,
+  } = useContext(PlanetsContext);
+
   const { name } = filterByName;
+
+  useEffect(() => {
+    getPlanetsApi();
+  }, []);
 
   return (
     <section>
@@ -26,7 +36,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { data.filter((planet) => planet.name.toLowerCase().includes(name))
+          { filteredPlanets?.filter((planet) => planet.name.toLowerCase().includes(name))
             .map((obj) => (
               <tr key={ obj.name }>
                 <td>{ obj.name }</td>

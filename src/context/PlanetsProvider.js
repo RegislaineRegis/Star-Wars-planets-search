@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PlanetsContext from './PlanetsContext';
 import getPlanets from '../services/fetchPlanetsAPI';
@@ -6,27 +6,32 @@ import getPlanets from '../services/fetchPlanetsAPI';
 function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterByNumericValues, setFilterByNumericValues] = useState([{
     column: 'population',
     comparison: 'maior que',
-    value: '0' }]);
+    value: 0,
+  }]);
 
-  useEffect(() => {
-    const getPlanetsApi = async () => {
-      const apiResults = await getPlanets();
-      setData(apiResults);
-    };
-    getPlanetsApi();
-  }, []);
+  async function getPlanetsApi() {
+    const apiResults = await getPlanets();
+    setData(apiResults);
+    setFilteredPlanets(apiResults);
+  }
+
+  const contextValue = {
+    data,
+    getPlanetsApi,
+    filterByName,
+    filterByNumericValues,
+    filteredPlanets,
+    setFilterByName,
+    setFilterByNumericValues,
+    setFilteredPlanets,
+  };
 
   return (
-    <PlanetsContext.Provider
-      value={ { data,
-        filterByName,
-        setFilterByName,
-        filterByNumericValues,
-        setFilterByNumericValues } }
-    >
+    <PlanetsContext.Provider value={ contextValue }>
       { children }
     </PlanetsContext.Provider>
   );

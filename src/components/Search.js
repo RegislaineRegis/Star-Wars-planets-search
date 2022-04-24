@@ -2,12 +2,37 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Search() {
-  const { filterByName, setFilterByName, filterByNumericValues,
-    setFilterByNumericValues } = useContext(PlanetsContext);
+  const {
+    data,
+    filterByName,
+    filterByNumericValues,
+    setFilterByName,
+    setFilterByNumericValues,
+    setFilteredPlanets,
+  } = useContext(PlanetsContext);
+
   const [{ column, comparison, value }] = filterByNumericValues;
 
+  function handleSearch(event) {
+    event.preventDefault();
+    const maiorQue = data.filter((planet) => Number(planet[column]) > Number(value));
+    const menorQue = data.filter((planet) => Number(planet[column]) < Number(value));
+    const igualA = data.filter((planet) => Number(planet[column]) === Number(value));
+
+    switch (comparison) {
+    case 'maior que':
+      return setFilteredPlanets(maiorQue);
+    case 'menor que':
+      return setFilteredPlanets(menorQue);
+    case 'igual a':
+      return setFilteredPlanets(igualA);
+    default:
+      return setFilteredPlanets(data);
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={ handleSearch }>
       <input
         type="text"
         name="planet"
@@ -36,6 +61,7 @@ function Search() {
         Operador
         <select
           data-testid="comparison-filter"
+          id="operador"
           value={ comparison }
           onChange={ ({ target }) => setFilterByNumericValues([{
             column, comparison: target.value, value }]) }
