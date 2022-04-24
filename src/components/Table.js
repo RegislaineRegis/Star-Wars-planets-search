@@ -7,6 +7,7 @@ function Table() {
     filterByName,
     getPlanetsApi,
     filteredPlanets,
+    renderFilters,
   } = useContext(PlanetsContext);
 
   const { name } = filterByName;
@@ -17,6 +18,13 @@ function Table() {
 
   return (
     <section>
+      { renderFilters.map(({ column, comparison, value }, index) => (
+        <div key={ index }>
+          <p>{ column }</p>
+          <p>{ comparison }</p>
+          <p>{ value }</p>
+        </div>
+      )) }
       <table>
         <thead>
           <tr>

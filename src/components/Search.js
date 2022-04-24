@@ -6,33 +6,35 @@ function Search() {
     data,
     filterByName,
     filterByNumericValues,
+    filteredPlanets,
+    renderFilters,
     setFilterByName,
     setFilterByNumericValues,
     setFilteredPlanets,
+    setRenderFilters,
   } = useContext(PlanetsContext);
 
   const [{ column, comparison, value }] = filterByNumericValues;
 
-  function handleSearch(event) {
-    event.preventDefault();
-    const maiorQue = data.filter((planet) => Number(planet[column]) > Number(value));
-    const menorQue = data.filter((planet) => Number(planet[column]) < Number(value));
-    const igualA = data.filter((planet) => Number(planet[column]) === Number(value));
-
+  function handleSearch() {
+    setRenderFilters([...renderFilters, { column, comparison, value }]);
     switch (comparison) {
     case 'maior que':
-      return setFilteredPlanets(maiorQue);
+      return setFilteredPlanets(filteredPlanets
+        .filter((planet) => Number(planet[column]) > Number(value)));
     case 'menor que':
-      return setFilteredPlanets(menorQue);
+      return setFilteredPlanets(filteredPlanets
+        .filter((planet) => Number(planet[column]) < Number(value)));
     case 'igual a':
-      return setFilteredPlanets(igualA);
+      return setFilteredPlanets(filteredPlanets
+        .filter((planet) => Number(planet[column]) === Number(value)));
     default:
       return setFilteredPlanets(data);
     }
   }
 
   return (
-    <form onSubmit={ handleSearch }>
+    <form>
       <input
         type="text"
         name="planet"
@@ -79,7 +81,11 @@ function Search() {
         onChange={ ({ target }) => setFilterByNumericValues([{
           column, comparison, value: target.value }]) }
       />
-      <button type="submit" data-testid="button-filter">
+      <button
+        type="button"
+        data-testid="button-filter"
+        onClick={ handleSearch }
+      >
         Filtrar
       </button>
     </form>
