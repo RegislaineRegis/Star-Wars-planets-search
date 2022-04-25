@@ -8,15 +8,20 @@ function Search() {
     filterByNumericValues,
     filteredPlanets,
     renderFilters,
+    options,
     setFilterByName,
     setFilterByNumericValues,
     setFilteredPlanets,
     setRenderFilters,
+    setOptions,
   } = useContext(PlanetsContext);
 
   const [{ column, comparison, value }] = filterByNumericValues;
 
-  function handleSearch() {
+  function handleSearch({ target }) {
+    const filteredSelectoption = options.filter((option) => option !== target.value);
+
+    setOptions(filteredSelectoption);
     setRenderFilters([...renderFilters, { column, comparison, value }]);
     switch (comparison) {
     case 'maior que':
@@ -52,11 +57,9 @@ function Search() {
           onChange={ ({ target }) => setFilterByNumericValues([{
             column: target.value, comparison, value }]) }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          { options.map((option, index) => (
+            <option key={ index }>{ option }</option>
+          )) }
         </select>
       </label>
       <label htmlFor="operador">
@@ -84,6 +87,7 @@ function Search() {
       <button
         type="button"
         data-testid="button-filter"
+        value={ column }
         onClick={ handleSearch }
       >
         Filtrar
