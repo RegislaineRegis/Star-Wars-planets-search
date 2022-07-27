@@ -9,6 +9,7 @@ function Search() {
     filteredPlanets,
     renderFilters,
     options,
+    arrayInicialOptions,
     setFilterByName,
     setFilterByNumericValues,
     setFilteredPlanets,
@@ -22,7 +23,12 @@ function Search() {
     const filteredSelectoption = options.filter((option) => option !== target.value);
 
     setOptions(filteredSelectoption);
+
     setRenderFilters([...renderFilters, { column, comparison, value }]);
+
+    setFilterByNumericValues([{
+      column: arrayInicialOptions[0], comparison: 'maior que', value: 0 }]);
+
     switch (comparison) {
     case 'maior que':
       return setFilteredPlanets(filteredPlanets
@@ -39,7 +45,7 @@ function Search() {
   }
 
   return (
-    <form>
+    <form className="forms">
       <input
         type="text"
         name="planet"
@@ -50,6 +56,8 @@ function Search() {
       />
       <label htmlFor="column">
         Coluna
+        { ' ' }
+        { ' ' }
         <select
           data-testid="column-filter"
           value={ column }
@@ -64,6 +72,8 @@ function Search() {
       </label>
       <label htmlFor="operador">
         Operador
+        { ' ' }
+        { ' ' }
         <select
           data-testid="comparison-filter"
           id="operador"
@@ -89,6 +99,7 @@ function Search() {
         data-testid="button-filter"
         value={ column }
         onClick={ handleSearch }
+        className="btn"
       >
         Filtrar
       </button>

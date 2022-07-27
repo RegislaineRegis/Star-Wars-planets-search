@@ -4,10 +4,16 @@ import PlanetsContext from '../context/PlanetsContext';
 
 function Table() {
   const {
+    data,
     filterByName,
     getPlanetsApi,
     filteredPlanets,
     renderFilters,
+    options,
+    arrayInicialOptions,
+    setOptions,
+    setRenderFilters,
+    setFilteredPlanets,
   } = useContext(PlanetsContext);
 
   const { name } = filterByName;
@@ -16,15 +22,49 @@ function Table() {
     getPlanetsApi();
   }, []);
 
+  function handleRemoveBtn({ target }) {
+    target.parentNode.remove();
+
+    setOptions([...options, target.value]);
+  }
+
+  function handleRemoveAllFiltersBtn() {
+    setRenderFilters([]);
+
+    setOptions(arrayInicialOptions);
+
+    setFilteredPlanets(data);
+  }
+
   return (
     <section>
-      { renderFilters.map(({ column, comparison, value }, index) => (
-        <div key={ index }>
-          <p>{ column }</p>
-          <p>{ comparison }</p>
-          <p>{ value }</p>
-        </div>
-      )) }
+      <div className="filters">
+        { renderFilters.map(({ column, comparison, value }, index) => (
+          <div key={ index } className="filter-items">
+            <p>{ column }</p>
+            <p>{ comparison }</p>
+            <p>{ value }</p>
+            <button
+              type="button"
+              data-testid="filter"
+              value={ column }
+              onClick={ handleRemoveBtn }
+              className="btn btn-x"
+            >
+              X
+            </button>
+          </div>
+        )) }
+        { renderFilters.length !== 0 ? (
+          <button
+            type="button"
+            data-testid="button-remove-filters"
+            onClick={ handleRemoveAllFiltersBtn }
+            className="btn"
+          >
+            Remover filtros
+          </button>) : '' }
+      </div>
       <table>
         <thead>
           <tr>

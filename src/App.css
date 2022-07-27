@@ -1,41 +1,152 @@
-.App {
+body {
+  background-image: url('./images/darth.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: absolute;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  -ms-overflow-style: auto;
+  margin: 0;
+  color: rgba(242, 221, 63, 0.908);
+  font-family: 'Permanent Marker', cursive;
+  font-size: larger;
+  background-attachment: fixed;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.753);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-track-piece {
+  background: rgba(0,0,0,0.5);;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.forms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 9%;
+  margin-bottom: 5%;
+  align-content: space-between;
+  align-items: flex-end;
+  gap: 15px 30px;
+}
+
+input {
+  border-radius: 10px;
+  border: none;
+  padding: 5px 25px;
+  width: 20%;
+  height: 50px;
+  font-size: 15px;
+  background-color: rgba(32, 32, 32, 0.387);
+  color: whitesmoke;
+  font-family: 'Permanent Marker', cursive;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  transition: all 0.3s ease-in-out;
+}
+
+input:hover {
+  transform: scale(1.1, 1.1);
+}
+
+input:hover:after {
+  opacity: 1;
+}
+
+select {
+  appearance: none;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  padding: 10px 30px;
+  font-size: 15px;
+  line-height: inherit;
+  background-color: rgba(32, 32, 32, 0.387);
+  color: whitesmoke;
+  font-family: 'Permanent Marker', cursive;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; 
+  transition: all 0.3s ease-in-out;
+}
+
+select:hover {
+  transform: scale(1.1, 1.1);
+}
+
+select:hover:after {
+  opacity: 1;
+}
+
+select:active {
+  background-color: rgba(0, 0, 0, 0.351);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn {
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(12, 248, 193, 0.605);
+  font-family: 'Permanent Marker', cursive;
+  color: rgb(255, 255, 255);
+  font-weight: 800;
+  padding: 12px 20px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.btn:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.btn:hover:after {
+  opacity: 1;
+}
+
+.filters, .filter-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
+  gap: 15px 30px;
+  margin: 15px;
+}
+
+table {
+  background-color: rgba(32, 32, 32, 0.387);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; 
+  border-radius: 10px;
+  border: none;
+  margin: 5%;
+  font-weight: 500;
+  position: absolute;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+th {
+  padding: 5px 15px;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+td {
+  font-size: 17px;
+  left: 5px;
 }
